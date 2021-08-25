@@ -1,0 +1,27 @@
+<section class='navbar'>
+  <button>
+    <%= link_to 'Home', root_path %>
+  </button>
+
+  <% if user_signed_in? %>
+    <button>
+      <%= link_to 'Profile', user_path(current_user) %>
+    </button>
+    <button>
+      <%= link_to 'Setting', edit_user_path(current_user) %>
+    </button>
+    <button>
+      <%= link_to 'Logout', destroy_user_session_path, method: :delete, data: { confirm: 'Are you sure?' } %>
+    </button>
+  <% else %>
+    <button>
+      <%= link_to 'Sign Up', new_user_registration_path %>
+    </button>
+    <button>
+      <%= link_to 'Login', new_user_session_path %>
+    </button>
+    <button>
+      <%= link_to 'Become a host', platform_home_path %>
+    </button>
+  <% end %>
+</section>
