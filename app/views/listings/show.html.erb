@@ -13,5 +13,16 @@
     <%= link_to 'Get Direction', "https://maps.google.com/?q=#{@listing.latitude},#{@listing.longitude}", target: '_blank' %>
     <br>
   </div>
+
+  <div class='booking-form'>
+    <h2>Booking section</h2>
+    <%= form_with(model: [@listing, @booking]) do |f| %>
+      <%= f.label :check_in_date %>
+      <%= f.date_field :check_in_date %>
+      <%= f.label :check_out_date %>
+      <%= f.date_field :check_out_date %>
+      <%= f.submit 'Confirm' %>
+    <% end %>
+  </div>
 </section>
-<%# copy from users/show.html.erb %>
+<%# copy from users/show.html.erb MINS 01:51:00 %>

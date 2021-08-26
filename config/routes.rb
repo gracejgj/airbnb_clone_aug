@@ -7,7 +7,13 @@ Rails.application.routes.draw do
     root 'pages#home'
 
     resources :users
-    resources :listings, only: [:show] #use show to user they're not admin
+    resources :listings, only: [:show] do  #use show to user they're not admin
+      resources :bookings do #this part is nexted resources
+        get 'success'
+        get 'cancel'
+        get 'payment_details'
+      end
+    end
 
     namespace :platform do #from slides (for host/admin)
       get '/home', to: 'pages#host_homepage'

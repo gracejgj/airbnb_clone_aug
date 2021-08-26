@@ -7,6 +7,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @listings = Listing.is_available #check listing.rb
+    @bookings = @user.bookings
   end
 
   def edit

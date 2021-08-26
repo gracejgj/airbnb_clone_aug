@@ -1,0 +1,32 @@
+<section class='single-booking-page'>
+  <div class='listing-details'>
+    <h1>Listing Details</h1>
+    <p>Host: <%= @booking.host.email %></p>
+    <p>Destination: <%= @booking.listing.title %></p>
+    <p>Location: <%= @booking.listing.location %></p>
+  </div>
+
+  <div class='booking-details'>
+    <h1>Booking details</h1>
+    <p>Reference No. <%= @booking.ref_no %></p>
+    <p>Check in: <%= @booking.check_in_date %></p>
+    <p>Check out: <%= @booking.check_out_date %></p>
+    <p>total: <%= @booking.total %></p>
+    <p>status: <%= @booking.status %></p>
+  </div>
+
+  <% if @booking.status == 'pending' %>
+    <div class='booking-payment'>
+      <%= form_with url: '/stripes', method: :post do |f| %>
+        <%= f.text_field :booking_id, value: "#{@booking.id}", hidden: true %>
+        <%= f.submit 'Confirm Booking'%>
+      <% end %>
+    </div>
+  <% elsif @booking.status == 'cancelled' %>
+    <p>This Booking has been cancelled.</p>
+  <% else %>
+    <button>
+      <%= link_to 'View payment details', listing_booking_payment_details_path(@booking.listing, @booking)%>
+    </button>
+  <% end %>
+</section>
