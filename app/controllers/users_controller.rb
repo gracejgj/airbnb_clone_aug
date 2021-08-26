@@ -5,8 +5,8 @@ class UsersController < ApplicationController
   layout 'user'
 
   def show
-    @user = User.find(params[:id])  
-    @listings = Listing.is_available
+    @user = User.find(params[:id])
+    @listings = Listing.is_available #check listing.rb
   end
 
   def edit
