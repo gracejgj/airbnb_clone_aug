@@ -10,12 +10,12 @@
 
   <div class='user-bookings'>
     <h1>Your bookings</h1>
-    <% @bookings.each do |booking| %>
+    <%# @bookings.each do |booking| %>
       <br>
-      <%= link_to "#{booking.ref_no}", listing_booking_path(booking.listing, booking) %>
-      <p>status: <%= booking.status %></p>
-      <p>Total: <%= booking.total %></p>
-    <% end %>
+      <%#= link_to "#{booking.ref_no}", listing_booking_path(booking.listing, booking) %>
+      <p>status: <%#= booking.status %></p>
+      <p>Total: <%#= booking.total %></p>
+    <%# end %>
   </div>
 
   <div class="all-available-listing">

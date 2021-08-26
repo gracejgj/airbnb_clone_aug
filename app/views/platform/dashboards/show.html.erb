@@ -38,8 +38,8 @@
     <%= link_to edit_platform_listing_path(listing) do %>
       <button>Edit</button>
     <% end %>
-    <br>
-    <%# image_tag "https://maps.googleapis.com/maps/api/staticmap?zoom=17&size=400x300&markers=size:small%7Ccolor:red%7C#{listing.latitude},#{listing.longitude}&key=#{Rails.application.credentials[Rails.env.to_sym][:GOOGLE_MAP_API]}", alt: "Map" %>
+    <br> <%# static page %>
+    <%= image_tag "https://maps.googleapis.com/maps/api/staticmap?zoom=17&size=400x300&markers=size:small%7Ccolor:red%7C#{listing.latitude},#{listing.longitude}&key=#{Rails.application.credentials[Rails.env.to_sym][:GOOGLE_MAP_API]}", alt: "Map" %>
     <br>
     <%= link_to 'Get Direction', "https://maps.google.com/?q=#{listing.latitude},#{listing.longitude}", target: '_blank' %>
     <br>
