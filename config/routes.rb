@@ -8,9 +8,15 @@ Rails.application.routes.draw do
 
     resources :users
 
-    namespace :platform do #from slides
+    namespace :platform do #from slides (for host/admin)
       get '/home', to: 'pages#host_homepage'
+
       resources :dashboards, only: [:show]
       resources :hosts #points to edit_platform_host_path _platform.html.erb
+      resources :listings do
+        member do #add member here to get the listing id
+          delete :delete_photo_attachment #action method name insid elisting controller
+        end
+      end
     end
 end

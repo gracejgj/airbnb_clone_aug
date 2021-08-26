@@ -1,0 +1,24 @@
+<h1>Listing Edit Page</h1>
+
+<section class='edit-listing-form'>
+  <%= form_with(model: [:platform, @listing], data: { controller: 'location', action: 'google-maps-callback@window->location.initMap' }) do |f| %>
+    <%= f.label :photos %>
+    <%= f.file_field :photos, multiple: true %>
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+    <%= f.label :description %>
+    <%= f.text_field :description %>
+    <%= f.label :price_per_day %>
+    <%= f.text_field :price_per_day %>
+    <%= f.label :location %>
+    <%= f.text_field :location, data: { location_target: 'field' } %>
+    <%= f.hidden_field :latitude, data: { location_target: 'latitude' } %>
+    <%= f.hidden_field :longitude, data: { location_target: 'longitude' } %>
+    <%= f.label :available %>
+    <%= f.check_box :available %>
+    <%= f.submit 'create' %>
+    <div class='google-map' style='margin-top: 10px;'>
+      <div data-location-target='map' style='height: 400px'></div>
+    </div>
+  <% end %>
+</section>

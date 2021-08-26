@@ -1,6 +1,47 @@
 <h1>Host Dashboard</h1>
 
 <section class='new-listing-form'>
+  <%= form_with(model: [:platform, @listing], data: { controller: 'location', action: 'google-maps-callback@window->location.initMap' }) do |f| %>
+    <%= f.label :photos %>
+    <%= f.file_field :photos, multiple: true %>
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+    <%= f.label :description %>
+    <%= f.text_field :description %>
+    <%= f.label :price_per_day %>
+    <%= f.text_field :price_per_day %>
+    <%= f.label :location %>
+    <%= f.text_field :location, data: { location_target: 'field' } %>
+    <%= f.hidden_field :latitude, data: { location_target: 'latitude' } %>
+    <%= f.hidden_field :longitude, data: { location_target: 'longitude' } %>
+    <%= f.label :available %>
+    <%= f.check_box :available %>
+    <%= f.submit 'create' %>
+    <div class='google-map' style='margin-top: 10px;'>
+      <div data-location-target='map' style='height: 400px'></div>
+    </div>
+  <% end %>
+</section>
 
-
+<section class='host-listings'>
+  <h2>All your listings</h2>
+  <% @listings.each do |listing| %>
+    <% if listing.photos.attached? %>
+      <% listing.photos.each do |photo| %>
+        <%= image_tag photo, style: 'width: 200px;'%>
+        <%= link_to 'Remove', delete_photo_attachment_platform_listing_path(photo), method: :delete, data: { confirm: 'Are you sure?' }%>
+      <% end %>
+    <% end %>
+    <p>Title: <%= listing.title %></p>
+    <p>Description: <%= listing.description %></p>
+    <p>Price per day: <%= listing.price_per_day %></p>
+    <%= link_to edit_platform_listing_path(listing) do %>
+      <button>Edit</button>
+    <% end %>
+    <br>
+    <%# image_tag "https://maps.googleapis.com/maps/api/staticmap?zoom=17&size=400x300&markers=size:small%7Ccolor:red%7C#{listing.latitude},#{listing.longitude}&key=#{Rails.application.credentials[Rails.env.to_sym][:GOOGLE_MAP_API]}", alt: "Map" %>
+    <br>
+    <%= link_to 'Get Direction', "https://maps.google.com/?q=#{listing.latitude},#{listing.longitude}", target: '_blank' %>
+    <br>
+  <% end %>
 </section>

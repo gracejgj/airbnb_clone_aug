@@ -1,7 +1,41 @@
 <section class='user-profile'>
-
+  <div class='user-avatar'>
+    <% if @user.avatar.attached? %>
+      <%= image_tag @user.avatar, style: 'width: 200px;' %>
+    <% end %>
+  </div>
   <div class='user-details'>
-  <h1><%= @user.email %></h1>
+    <h1><%= @user.email %></h1>
   </div>
 
+  <div class='user-bookings'>
+    <h1>Your bookings</h1>
+    <% @bookings.each do |booking| %>
+      <br>
+      <%= link_to "#{booking.ref_no}", listing_booking_path(booking.listing, booking) %>
+      <p>status: <%= booking.status %></p>
+      <p>Total: <%= booking.total %></p>
+    <% end %>
+  </div>
+
+  <div class="all-available-listing">
+    <h1>You might be interested</h1>
+    <% @listings.each do |listing| %>
+      <% if listing.photos.attached? %>
+        <% listing.photos.each do |photo| %>
+          <%= image_tag photo, style: 'width: 200px;'%>
+        <% end %>
+      <% end %>
+      <p>Title: <%= listing.title %></p>
+      <p>Description: <%= listing.description %></p>
+      <p>Price Per Day: <%= listing.price_per_day %></p>
+      <%= image_tag "https://maps.googleapis.com/maps/api/staticmap?zoom=17&size=400x300&markers=size:small%7Ccolor:red%7C#{listing.latitude},#{listing.longitude}&key=#{Rails.application.credentials[Rails.env.to_sym][:GOOGLE_MAP_API]}", alt: "Map" %>
+      <br>
+      <%= link_to 'Get Direction', "https://maps.google.com/?q=#{listing.latitude},#{listing.longitude}", target: '_blank' %>
+      <br>
+      <%= link_to listing_path(listing) do %>
+        <button>Booking</button>
+      <% end %>
+    <% end %>
+  </div>
 </section>
