@@ -2,10 +2,11 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
   # before_action :set_user, only: [:show, :edit, :update]
 
-  layout 'user'   
+  layout 'user'
 
   def show
-    @user = User.find(params[:id])
+    @user = User.find(params[:id])  
+    @listings = Listing.is_available
   end
 
   def edit

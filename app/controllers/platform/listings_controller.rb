@@ -14,6 +14,17 @@ class Platform::ListingsController < PlatformController
     @listing = Listing.find(params[:id])
   end
 
+  def update
+    @listing = Listing.find(params[:id])
+    @listing.update(listing_params)
+
+    if @listing.save
+      redirect_to platform_dashboard_path(current_host), notice: 'Listing was successfully updated.'
+    else
+      redirect_to platform_dashboard_path(current_host), alert: 'There was an error. Please try again.'
+    end
+  end
+
   def delete_photo_attachment #to delete a single id
     @image = ActiveStorage::Attachment.find(params[:id])
     @image.purge
