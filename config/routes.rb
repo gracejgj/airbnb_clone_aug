@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     root 'pages#home'
 
     resources :users
+    resources :listings, only: [:show] #use show to user they're not admin
 
     namespace :platform do #from slides (for host/admin)
       get '/home', to: 'pages#host_homepage'

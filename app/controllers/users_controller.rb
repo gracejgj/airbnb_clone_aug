@@ -32,6 +32,6 @@ class UsersController < ApplicationController
   #
   # def set_user
   #   @user = User.find(params[:id])
-  # end
+  # end  [mins - 1:48:00]
 
 end
